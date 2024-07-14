@@ -14,7 +14,7 @@ if __name__ == '__main__':
     print(data.shape)
 
     data1 = boris.boris(x0, v0, steps=1000, device='cuda')
-    print(data1.shape)
+    print(data.shape)
 
     i = np.random.randint(low=0, high=data.shape[0] - 1)
 

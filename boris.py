@@ -8,7 +8,6 @@ os.environ["NUMEXPR_NUM_THREADS"] = "1"
 
 import numpy as np
 import math
-import matplotlib.pyplot as plt
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 import scipy
@@ -79,8 +78,8 @@ def sampling_circle(sample_size):
     a = np.random.uniform(size=sample_size)
     b = np.random.uniform(size=sample_size)
     c = np.random.uniform(size=sample_size)
-    x = (R0 + r0 * a ** (1 / 2) * np.cos(2 * math.pi * b))*np.cos(2 * math.pi * c)
-    y = (R0 + r0 * a ** (1 / 2) * np.cos(2 * math.pi * b))*np.sin(2 * math.pi * c)
+    x = (R0 + r0 * a ** (1 / 2) * np.cos(2 * math.pi * b)) * np.cos(2 * math.pi * c)
+    y = (R0 + r0 * a ** (1 / 2) * np.cos(2 * math.pi * b)) * np.sin(2 * math.pi * c)
     z = r0 * a ** (1 / 2) * np.sin(2 * math.pi * b)
     return np.vstack((x, y, z))
 
@@ -191,12 +190,11 @@ def boris(x0, v0, steps=1, device='cpu'):
     return data
 
 
-def save(d):
-    if isinstance(d, torch.Tensor):
-        d = d.detach().cpu().numpy()
+def save(data, filename='data.mat'):
+    if isinstance(data, torch.Tensor):
+        data = data.detach().cpu().numpy()
     else:
-        d = np.array(d, dtype=np.float64)
+        data = np.array(data, dtype=np.float64)
     if not os.path.exists('data'):
         os.makedirs('data')
-    scipy.io.savemat(os.path.join('./data', 'data.mat'), {'data': d})
-
+    scipy.io.savemat(os.path.join('./data', filename), {'data': data})
