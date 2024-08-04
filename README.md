@@ -1,25 +1,24 @@
 # Boris
 
-A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, using Python3.8 and C++.
+A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, based on Python3.8 and C++.
 
-## 简介
+## Introduce
 
-`boris`算法来源于[Why is Boris algorithm so good?](https://pubs.aip.org/aip/pop/article-abstract/20/8/084503/317652/Why-is-Boris-algorithm-so-good?redirectedFrom=fulltext)一文，它能计算给定位置、速度的粒子在三维电磁场下的推进。
+`boris` algorithm \([Why is Boris algorithm so good?](https://pubs.aip.org/aip/pop/article-abstract/20/8/084503/317652/Why-is-Boris-algorithm-so-good?redirectedFrom=fulltext)\) can calculate the advance of a particle with a given position and velocity under a three-dimensional electromagnetic field.
 
-这个库实现了`boris`算法，并支持多线程并行计算，可以极大的加快轨迹的推动速度。使用本库进行计算，在单线程下，3万个粒子推进1万步仅需12.3秒。使用32线程，时间将缩短至1秒。该库的内存耗费很小，上述情景的内存耗费约14G，这与`30000x10000x6`的`numpy`矩阵大小一致，所有内存几乎都用于数据存储。
+This library implements `boris` algorithm and supports multi-threaded parallel computation, which can greatly accelerate the speed of trajectory promotion. Using this library, it takes 12.3 seconds for 30,000 particles to advance 10,000 steps in 1 thread. With 32 threads, the time is reduced to 1 second. The memory consumption of the library is small, about 14G for the above scenario, which is consistent with the `numpy` matrix size of `30000x10000x6`, and almost all of the memory is used for data storage.
 
-本库的计算假定电磁场为托卡马克电磁场，粒子为$\alpha$粒子，存储有默认参数，并可自行调节。
+The calculation of this library assumes that the electromagnetic field is a tokamak electromagnetic field, the particle is a α particle, and the default parameters are stored and can be adjusted.
 
-## 项目环境
+## Environment
 
 **!! Python3.8 Required !!**
 
 ```shell
-pip install numpy matplotlib tqdm scipy
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install numpy matplotlib tqdm
 ```
 
-## 调用实现
+## Example
 
 引入相关库
 
@@ -87,9 +86,5 @@ plt.legend()
 
 plt.show()
 ```
-
-
-
-## 香蕉轨道示例
 
 ![img.png](img.png)

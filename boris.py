@@ -9,7 +9,6 @@ os.environ["NUMEXPR_NUM_THREADS"] = "1"
 import numpy as np
 import math
 from tqdm import tqdm
-import scipy
 import time
 import ctypes
 import multiprocessing as mp
