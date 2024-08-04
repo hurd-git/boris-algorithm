@@ -1,6 +1,8 @@
-## 简介
+# Boris
 
-一个使用`boris`算法推动粒子轨迹的高性能计算库，使用Python3.8和C++。
+A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, using Python3.8 and C++.
+
+## 简介
 
 `boris`算法来源于[Why is Boris algorithm so good?](https://pubs.aip.org/aip/pop/article-abstract/20/8/084503/317652/Why-is-Boris-algorithm-so-good?redirectedFrom=fulltext)一文，它能计算给定位置、速度的粒子在三维电磁场下的推进。
 
