@@ -1,19 +1,18 @@
 
+import os
 import numpy as np
-import boris
+from boris import Boris
 import matplotlib.pyplot as plt
 
 
 if __name__ == '__main__':
-    device = 'cpu'
 
+    boris = Boris()
     x0, v0 = boris.random_x_v(30000)
     print(x0.shape, v0.shape)
 
-    data = boris.boris(x0, v0, steps=1000, device='cpu')
-    print(data.shape)
-
-    data1 = boris.boris(x0, v0, steps=1000, device='cuda')
+    threads = os.cpu_count()
+    data = boris.run(x0, v0, steps=10000, threads=threads, info=True)
     print(data.shape)
 
     i = np.random.randint(low=0, high=data.shape[0] - 1)
