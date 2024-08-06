@@ -15,7 +15,7 @@ The calculation of this library assumes that the electromagnetic field is a toka
 **Python >= 3.8 Required**
 
 ```shell
-pip install numpy==1.24.3 matplotlib tqdm
+pip install numpy<2.0.0 matplotlib tqdm
 ```
 
 ## Example
