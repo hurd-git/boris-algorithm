@@ -14,7 +14,7 @@ import time
 import ctypes
 import multiprocessing as mp
 
-import boris_cpp
+import boris.boris_cpp as boris_cpp
 
 
 

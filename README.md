@@ -1,6 +1,6 @@
 # Boris
 
-A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, based on Python3.8 and C++.
+A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, based on Python and C++.
 
 ## Introduce
 
@@ -12,10 +12,10 @@ The calculation of this library assumes that the electromagnetic field is a toka
 
 ## Environment
 
-**!! Python3.8 Required !!**
+**!! Python>=3.8 Required !!**
 
 ```shell
-pip install numpy matplotlib tqdm
+pip install numpy==1.24.3 matplotlib tqdm
 ```
 
 ## Example
