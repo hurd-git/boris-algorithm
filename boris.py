@@ -9,6 +9,7 @@ os.environ["NUMEXPR_NUM_THREADS"] = "1"
 import numpy as np
 import math
 from tqdm import tqdm
+import scipy
 import time
 import ctypes
 import multiprocessing as mp
@@ -197,13 +198,13 @@ class Boris:
         # velocity0 = np.random.rand(particle_num, 3) / 10 ** -9
 
         # 提交到cpp
-        if info:
-            tic = time.time()
-            print("prepare memory...", end='')
+        # if info:
+        #     tic = time.time()
+        #     print("prepare memory...", end='')
         self.cpp.submit(thread_progress, result, position0, velocity0, actual_threads)
-        if info:
-            toc = time.time()
-            print('done (' + '{:.3f}'.format(toc - tic) + 's)')
+        # if info:
+        #     toc = time.time()
+        #     print('done (' + '{:.3f}'.format(toc - tic) + 's)')
         # 开启tqdm伴随
         # subprocess = mp.Process(target=tqdm_guard_process, args=(shared_progress_base, barrier, total_progress))
         # subprocess.start()
@@ -213,7 +214,7 @@ class Boris:
         # 开始计算
         if info:
             tic = time.time()
-            print("Using threads: {}, start calculating...".format(actual_threads), end='')
+            print("Using threads: {}, prepare memory + start calculating...".format(actual_threads), end='')
         self.cpp.run()
         if info:
             toc = time.time()

@@ -55,8 +55,7 @@ print(data.shape)
 ```
 
 ```
->>> prepare memory...done (0.582s)
->>> Using threads: 32, start calculating...done (0.992s)
+>>> Using threads: 32, prepare memory + start calculating...done (1.138s)
 >>> (30000, 10001, 6)
 ```
 
