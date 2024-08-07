@@ -1,6 +1,6 @@
 # Boris
 
-A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, based on Python and C++.
+A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, based on Python Numpy and C++ Eigen3.
 
 ## Introduce
 
