@@ -1,4 +1,4 @@
-# Boris
+# Boris Algorithm with Eigen3
 
 A high-performance computing library for calculating particle trajectories of charged particles using the boris algorithm, based on Python Numpy and C++ Eigen3.
 
