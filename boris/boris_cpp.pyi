@@ -7,11 +7,11 @@ class Tokamak1:
 
     def __init__(
         self,
-        R0: np.float64 = ...,
-        B0: np.float64 = ...,
-        r0: np.float64 = ...,
-        q0: np.float64 = ...,
-        dt: np.float64 = ...
+        R0: np.float64 = ...,  # Large radius
+        B0: np.float64 = ...,  # Magnetic field at large radius
+        r0: np.float64 = ...,  # Small radius
+        q0: np.float64 = ...,  # Safety factor
+        dt: np.float64 = ...   # T=2π/QB, dt=T/10
     ): ...
 
     def get_magnetic(
@@ -37,15 +37,18 @@ class Tokamak1:
     def q0_recip(self) -> np.float64: ...
 
     # read and write
-    q: np.float64
+    Q: np.float64
     m: np.float64
     dt: np.float64
 
     # readonly
     @property
-    def qt_2m(self) -> np.float64: ...
+    def Qdt_2m(self) -> np.float64: ...
     @property
-    def qt_2m_2(self) -> np.float64: ...
+    def Qdt_2m_2(self) -> np.float64: ...
+
+    @property
+    def T0(self) -> np.float64: ...
 
 
 class Boris:

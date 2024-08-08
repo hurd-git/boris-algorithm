@@ -7,7 +7,6 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
 os.environ["NUMEXPR_NUM_THREADS"] = "1"
 
 import numpy as np
-import math
 from tqdm import tqdm
 import scipy
 import time
@@ -15,8 +14,6 @@ import ctypes
 import multiprocessing as mp
 
 import boris.boris_cpp as boris_cpp
-
-
 
 # class MagneticField:
 #     def get_magnetic(self, *args, **kwargs):
@@ -38,8 +35,8 @@ import boris.boris_cpp as boris_cpp
 
 cpu_num = os.cpu_count()
 
+
 def tqdm_guard_process(shared_array_base, barrier, total_progress):
-    print(11111)
     thread_progress = np.frombuffer(shared_array_base, dtype=shared_array_base._type_)
 
     tbar = tqdm(total=total_progress, ncols=100, mininterval=0.05)
@@ -50,6 +47,9 @@ def tqdm_guard_process(shared_array_base, barrier, total_progress):
         if tbar.n >= tbar.total:
             break
         time.sleep(0.04)
+
+
+e0 = 1.602176634 * 10 ** (-19)
 
 
 class Boris:
@@ -63,53 +63,91 @@ class Boris:
         self.r0 = self.mag.r0
         self.q0 = self.mag.q0
 
-        self.q = self.mag.q
+        self.Q = self.mag.Q
         self.m = self.mag.m
         self.dt = self.mag.dt
 
-        self.normv = 12926625  # 回旋半径最大0.05左右，小半径是2m
+        self.E = 3.5  # MeV, when E=3.5MeV, v=12991758m/s, r=0.05388m
 
     @property
-    def R0(self) -> np.float64: return self.mag.R0
+    def R0(self) -> np.float64:
+        return self.mag.R0
+
     @R0.setter
-    def R0(self, value: np.float64): self.mag.R0 = value
+    def R0(self, value: np.float64):
+        self.mag.R0 = value
 
     @property
-    def B0(self) -> np.float64: return self.mag.B0
+    def B0(self) -> np.float64:
+        return self.mag.B0
+
     @B0.setter
-    def B0(self, value: np.float64): self.mag.B0 = value
+    def B0(self, value: np.float64):
+        self.mag.B0 = value
 
     @property
-    def r0(self) -> np.float64: return self.mag.r0
+    def r0(self) -> np.float64:
+        return self.mag.r0
+
     @r0.setter
-    def r0(self, value: np.float64): self.mag.r0 = value
+    def r0(self, value: np.float64):
+        self.mag.r0 = value
 
     @property
-    def q0(self) -> np.float64: return self.mag.q0
+    def q0(self) -> np.float64:
+        return self.mag.q0
+
     @q0.setter
-    def q0(self, value: np.float64): self.mag.q0 = value
+    def q0(self, value: np.float64):
+        self.mag.q0 = value
 
     @property
-    def q(self) -> np.float64: return self.mag.q
-    @q.setter
-    def q(self, value: np.float64): self.mag.q = value
+    def Q(self) -> np.float64:
+        return self.mag.Q
+
+    @Q.setter
+    def Q(self, value: np.float64):
+        self.mag.Q = value
 
     @property
-    def m(self) -> np.float64: return self.mag.m
+    def m(self) -> np.float64:
+        return self.mag.m
+
     @m.setter
-    def m(self, value: np.float64): self.mag.m = value
+    def m(self, value: np.float64):
+        self.mag.m = value
 
     @property
-    def dt(self) -> np.float64: return self.mag.dt
+    def dt(self) -> np.float64:
+        return self.mag.dt
+
     @dt.setter
-    def dt(self, value: np.float64): self.mag.dt = value
+    def dt(self, value: np.float64):
+        self.mag.dt = value
 
     @property
-    def q0_recip(self) -> np.float64: return self.mag.q0_recip
+    def q0_recip(self) -> np.float64:
+        return self.mag.q0_recip
+
     @property
-    def qt_2m(self) -> np.float64: return self.mag.qt_2m
+    def Qdt_2m(self) -> np.float64:
+        return self.mag.Qdt_2m
+
     @property
-    def qt_2m_2(self) -> np.float64: return self.mag.qt_2m_2
+    def Qdt_2m_2(self) -> np.float64:
+        return self.mag.Qdt_2m_2
+
+    @property
+    def T0(self) -> np.float64:
+        return self.mag.T0
+
+    @property
+    def normv(self):
+        return np.sqrt(2 * e0 * self.E * 10**6 / self.m)
+
+    @property
+    def r(self):  # Cyclotron radius
+        return self.T0 * self.normv / (2*np.pi)
 
     def get_magnetic(self, x, y, z, device='cpu'):
         x, y, z = np.array(x, ndmin=1), np.array(y, ndmin=1), np.array(z, ndmin=1)
@@ -141,9 +179,9 @@ class Boris:
         a = np.random.uniform(size=sample_size)
         b = np.random.uniform(size=sample_size)
         c = np.random.uniform(size=sample_size)
-        x = (self.R0 + self.r0 * a ** (1 / 2) * np.cos(2 * math.pi * b)) * np.cos(2 * math.pi * c)
-        y = (self.R0 + self.r0 * a ** (1 / 2) * np.cos(2 * math.pi * b)) * np.sin(2 * math.pi * c)
-        z = self.r0 * a ** (1 / 2) * np.sin(2 * math.pi * b)
+        x = (self.R0 + self.r0 * a ** (1 / 2) * np.cos(2 * np.pi * b)) * np.cos(2 * np.pi * c)
+        y = (self.R0 + self.r0 * a ** (1 / 2) * np.cos(2 * np.pi * b)) * np.sin(2 * np.pi * c)
+        z = self.r0 * a ** (1 / 2) * np.sin(2 * np.pi * b)
         return np.vstack((x, y, z))
 
     def random_x_v(self, sample_num):
@@ -193,7 +231,6 @@ class Boris:
         result = np.empty(shape=(particle_num, steps + 1, 6), dtype=np.float64)
         result = result.reshape(-1, 6)
 
-
         # position0 = np.random.rand(particle_num, 3)
         # velocity0 = np.random.rand(particle_num, 3) / 10 ** -9
 
@@ -226,6 +263,3 @@ class Boris:
 
         result = result.reshape(particle_num, steps + 1, 6)
         return result
-
-
-
