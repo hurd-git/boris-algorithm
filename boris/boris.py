@@ -50,6 +50,7 @@ def tqdm_guard_process(shared_array_base, barrier, total_progress):
 
 
 e0 = 1.602176634 * 10 ** (-19)
+c0 = 299792458
 
 
 class Boris:
@@ -141,13 +142,17 @@ class Boris:
     def T0(self) -> np.float64:
         return self.mag.T0
 
+    #@property
+    #def normv(self):
+    #    return np.sqrt(2 * e0 * self.E * 10 ** 6 / self.m)
+
     @property
     def normv(self):
-        return np.sqrt(2 * e0 * self.E * 10**6 / self.m)
+        return c0 * np.sqrt(1 - (self.m*c0**2/(self.E*e0*10**6 + self.m*c0**2))**2)
 
     @property
     def r(self):  # Cyclotron radius
-        return self.T0 * self.normv / (2*np.pi)
+        return self.T0 * self.normv / (2 * np.pi)
 
     def get_magnetic(self, x, y, z, device='cpu'):
         x, y, z = np.array(x, ndmin=1), np.array(y, ndmin=1), np.array(z, ndmin=1)
