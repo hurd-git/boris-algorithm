@@ -10,15 +10,21 @@ This library implements `boris` algorithm and supports multi-threaded parallel c
 
 The calculation of this library assumes that the electromagnetic field is a tokamak electromagnetic field, the particle is a <img src="https://latex.codecogs.com/svg.image?\alpha" /> particle, and the default parameters are stored and can be adjusted. The expression of the magnetic field is
 
-<img src="https://latex.codecogs.com/svg.image?\mathbf{B}=\frac{B_0}{q_0}\left(\frac{z}{r}\mathbf{e}_r+\frac{q_0%20R_0}{r}\mathbf{e}_\phi+(-1+\frac{R_0}{r})\mathbf{e}_z\right)" />
+<p align="center">
+    <img src="https://latex.codecogs.com/svg.image?\mathbf{B}=\frac{B_0}{q_0}\left(\frac{z}{r}\mathbf{e}_r+\frac{q_0%20R_0}{r}\mathbf{e}_\phi+(-1+\frac{R_0}{r})\mathbf{e}_z\right)" />
+</p>
 
 It is ring symmetric. Converted to Cartesian coordinates, its expression is
 
-<img src="https://latex.codecogs.com/svg.image?\mathbf{B}=\frac{B_0}{q_0}\left(\frac{-q_0%20R_0%20y+z%20x}{x^2+y^2}\mathbf{e}_x+\frac{q_0%20R_0%20x+z%20y}{x^2+y^2}\mathbf{e}_y+\left(-1+\frac{R_0}{\sqrt{x^2+y^2}}\right)\mathbf{e}_z\right)" />
+<p align="center">
+    <img src="https://latex.codecogs.com/svg.image?\mathbf{B}=\frac{B_0}{q_0}\left(\frac{-q_0%20R_0%20y+z%20x}{x^2+y^2}\mathbf{e}_x+\frac{q_0%20R_0%20x+z%20y}{x^2+y^2}\mathbf{e}_y+\left(-1+\frac{R_0}{\sqrt{x^2+y^2}}\right)\mathbf{e}_z\right)" />
+</p>
 
 We take the ITER parameter, so by default:
 
-<img src="https://latex.codecogs.com/svg.image?B_0=5\;\mathrm{T}\quad%20q_0=2.5\quad%20R_0=6.2\;\mathrm{m}\quad%20r_0=2.0\;\mathrm{m}" />
+<p align="center">
+    <img src="https://latex.codecogs.com/svg.image?B_0=5\;\mathrm{T}\quad%20q_0=2.5\quad%20R_0=6.2\;\mathrm{m}\quad%20r_0=2.0\;\mathrm{m}" />
+</p>
 
 Where <img src="https://latex.codecogs.com/svg.image?B_0" /> is the magnetic field at the magnetic axis, <img src="https://latex.codecogs.com/svg.image?q_0" /> is the safety factor, <img src="https://latex.codecogs.com/svg.image?R_0" /> is the large radius, and <img src="https://latex.codecogs.com/svg.image?r_0" /> is the small radius.
 
