@@ -8,21 +8,19 @@ A high-performance computing library for calculating particle trajectories of ch
 
 This library implements `boris` algorithm and supports multi-threaded parallel computation, which can greatly accelerate the speed of trajectory promotion. Using this library, it takes 12.3 seconds for 30,000 particles to advance 10,000 steps in 1 thread. With 32 threads, the time is reduced to 1 second. The memory consumption of the library is small, about 14G for the above scenario, which is consistent with the `numpy` matrix size of `30000x10000x6`, and almost all of the memory is used for data storage.
 
-The calculation of this library assumes that the electromagnetic field is a tokamak electromagnetic field, the particle is a α particle, and the default parameters are stored and can be adjusted. The expression of the magnetic field is
+The calculation of this library assumes that the electromagnetic field is a tokamak electromagnetic field, the particle is a <img src="https://latex.codecogs.com/svg.image?\alpha" /> particle, and the default parameters are stored and can be adjusted. The expression of the magnetic field is
 
-<img src="picture/B_polar.png" alt="image-20240809203636704" style="zoom: 20%;" />
-$$
-\mathbf{B} = \frac{B_0}{q_0}\left( \frac{z}{r} \mathbf{e}_r + \frac{q_0 R_0}{r} \mathbf{e}_\phi + (-1 + \frac{R_0}{r}) \mathbf{e}_z \right)
-$$
+<img src="https://latex.codecogs.com/svg.image?\mathbf{B}=\frac{B_0}{q_0}\left(\frac{z}{r}\mathbf{e}_r+\frac{q_0%20R_0}{r}\mathbf{e}_\phi+(-1+\frac{R_0}{r})\mathbf{e}_z\right)" />
+
 It is ring symmetric. Converted to Cartesian coordinates, its expression is
-$$
-\mathbf{B} = \frac{B_0}{q_0}\left( \frac{-q_0 R_0 y+z x}{x^2+y^2} \mathbf{e}_x+\frac{q_0 R_0 x+z y}{x^2+y^2} \mathbf{e}_y+\left(-1+\frac{R_0}{\sqrt{x^2+y^2}}\right) \mathbf{e}_z \right)
-$$
+
+<img src="https://latex.codecogs.com/svg.image?\mathbf{B}=\frac{B_0}{q_0}\left(\frac{-q_0%20R_0%20y+z%20x}{x^2+y^2}\mathbf{e}_x+\frac{q_0%20R_0%20x+z%20y}{x^2+y^2}\mathbf{e}_y+\left(-1+\frac{R_0}{\sqrt{x^2+y^2}}\right)\mathbf{e}_z\right)" />
+
 We take the ITER parameter, so by default:
-$$
-B_0 = 5\mathrm{~T} \quad q_0 = 2.5 \quad R_0 = 6.2\mathrm{~m} \quad r_0 = 2.0\mathrm{~m}  
-$$
-Where $B_0$ is the magnetic field at the magnetic axis, $q_0$ is the safety factor, $R_0$ is the large radius, and $r_0$ is the small radius.
+
+<img src="https://latex.codecogs.com/svg.image?B_0=5\;\mathrm{T}\quad%20q_0=2.5\quad%20R_0=6.2\;\mathrm{m}\quad%20r_0=2.0\;\mathrm{m}" />
+
+Where <img src="https://latex.codecogs.com/svg.image?B_0" /> is the magnetic field at the magnetic axis, <img src="https://latex.codecogs.com/svg.image?q_0" /> is the safety factor, <img src="https://latex.codecogs.com/svg.image?R_0" /> is the large radius, and <img src="https://latex.codecogs.com/svg.image?r_0" /> is the small radius.
 
 
 
@@ -102,4 +100,4 @@ plt.legend()
 plt.show()
 ```
 
-![img.png](picture/img.png)
+![img.png](img.png)
