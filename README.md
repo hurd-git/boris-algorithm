@@ -10,7 +10,7 @@ This library implements `boris` algorithm and supports multi-threaded parallel c
 
 The calculation of this library assumes that the electromagnetic field is a tokamak electromagnetic field, the particle is a α particle, and the default parameters are stored and can be adjusted. The expression of the magnetic field is
 
-<img src="picture/B_polar.png" alt="image-20240809203636704" style="zoom: 33%;" />
+<img src="picture/B_polar.png" alt="image-20240809203636704" style="zoom: 20%;" />
 $$
 \mathbf{B} = \frac{B_0}{q_0}\left( \frac{z}{r} \mathbf{e}_r + \frac{q_0 R_0}{r} \mathbf{e}_\phi + (-1 + \frac{R_0}{r}) \mathbf{e}_z \right)
 $$
